@@ -36,7 +36,8 @@ public class WhoisMain extends Activity {
 			
 			@Override
 			public void onClick(View v) {
-				//Log.d("Whois Main", "Clicked request");
+				if (BuildConfig.DEBUG)
+					Log.d("Whois Main", "Clicked request");
 				checkWhois();
 			}
 		});
@@ -49,9 +50,10 @@ public class WhoisMain extends Activity {
 	private void checkWhois(){
 		List<String> results = new ArrayList<String>();
 		try {
-			//Log.d("Whois Main", "Sending whois request");
+			if (BuildConfig.DEBUG)
+				Log.d("Whois Main", "Sending whois request");
 			
-	        Runtime r = Runtime.getRuntime();
+	        	Runtime r = Runtime.getRuntime();
 			String pingCmd = "nslookup 65.55.175.254" ;
 			Process p;
 			
@@ -60,11 +62,13 @@ public class WhoisMain extends Activity {
 			BufferedReader in = new BufferedReader(new InputStreamReader(p.getInputStream()),8000);
 			String inputLine;
 			while ((inputLine = in.readLine()) != null) {
-				//Log.d("Whois Main", "Reading whois: " + inputLine);					
+				if (BuildConfig.DEBUG)
+					Log.d("Whois Main", "Reading whois: " + inputLine);					
 				results.add(inputLine);
 			}
 			in.close();
-			//Log.d("Whois Main", "Reader closed");		
+			if (BuildConfig.DEBUG)
+				Log.d("Whois Main", "Reader closed");		
 			for (String s : results) {
 			    TextView tv = new TextView(this);
 				tv.setLayoutParams(new LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT));
